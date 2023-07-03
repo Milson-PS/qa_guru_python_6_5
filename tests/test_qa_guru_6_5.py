@@ -1,6 +1,7 @@
 import os
 from selene import browser, have
 
+
 def test_check_form(browser_management):
     browser.open('/automation-practice-form')
     # Filling out the form
@@ -43,5 +44,3 @@ def test_check_form(browser_management):
     browser.all('.modal-body tr td')[15].should(have.exact_text('cat.jpg'))
     browser.all('.modal-body tr td')[17].should(have.exact_text('123 Street, City, Country'))
     browser.all('.modal-body tr td')[19].should(have.exact_text('NCR Delhi'))
-
-
