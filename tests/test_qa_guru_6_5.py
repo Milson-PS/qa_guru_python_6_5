@@ -8,7 +8,7 @@ def test_check_form(setup_browser):
     browser.element('#lastName').type('Ivanov')
     browser.element('#userEmail').type('Ivanov@yandex.ru')
     browser.element('label[for="gender-radio-1').click()
-    browser.element('#userNumber').type('89000000000')
+    browser.element('#userNumber').type('8900000000')
 
     # Date of birth
     browser.element('#dateOfBirthInput').click()
@@ -18,7 +18,7 @@ def test_check_form(setup_browser):
 
     # Filling out the form
     browser.element('#subjectsInput').type('Maths').press_enter()
-
+    browser.element('label[for="hobbies-checkbox-1"]').click()
 
     # load file
     browser.element('#uploadPicture').send_keys(os.path.abspath('image/cat.jpg'))
@@ -31,16 +31,18 @@ def test_check_form(setup_browser):
     browser.all("#city div").element_by(have.exact_text("Delhi")).click()
     browser.element('#submit').click()
 
+    browser.element('.modal-title').should(have.exact_text('Thanks for submitting the form')).wait_until(
+    have.exact_text('Thanks for submitting the form'))
 
     # Expected Result
     browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
     browser.all('.modal-body tr td')[1].should(have.exact_text('Ivan Ivanov'))
     browser.all('.modal-body tr td')[3].should(have.exact_text('Ivanov@yandex.ru'))
     browser.all('.modal-body tr td')[5].should(have.exact_text('Male'))
-    browser.all('.modal-body tr td')[7].should(have.exact_text('89000000000'))
+    browser.all('.modal-body tr td')[7].should(have.exact_text('8900000000'))
     browser.all('.modal-body tr td')[9].should(have.exact_text('04 June,1991'))
     browser.all('.modal-body tr td')[11].should(have.exact_text('Maths'))
-    browser.all('.modal-body tr td')[13].should(have.exact_text('Music'))
+    browser.all('.modal-body tr td')[13].should(have.exact_text('Sports'))
     browser.all('.modal-body tr td')[15].should(have.exact_text('cat.jpg'))
     browser.all('.modal-body tr td')[17].should(have.exact_text('123 Street, City, Country'))
     browser.all('.modal-body tr td')[19].should(have.exact_text('NCR Delhi'))
