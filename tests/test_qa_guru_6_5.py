@@ -1,7 +1,7 @@
 import os
 from selene import browser, have
 
-def test_check_form(setup_browser):
+def test_check_form(browser_management):
     browser.open('/automation-practice-form')
     # Filling out the form
     browser.element('#firstName').type('Ivan')
@@ -30,9 +30,6 @@ def test_check_form(setup_browser):
     browser.element('#city').click()
     browser.all("#city div").element_by(have.exact_text("Delhi")).click()
     browser.element('#submit').click()
-
-    browser.element('.modal-title').should(have.exact_text('Thanks for submitting the form')).wait_until(
-    have.exact_text('Thanks for submitting the form'))
 
     # Expected Result
     browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
