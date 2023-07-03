@@ -2,9 +2,8 @@ import os
 from selene import browser, have
 
 
-def test_check_form():
-    browser.open('https://demoqa.com/automation-practice-form')
-
+def test_check_form(setup_browser):
+    browser.open('/automation-practice-form')
     # Filling out the form
     browser.element('#firstName').type('Ivan')
     browser.element('#lastName').type('Ivanov')
@@ -14,11 +13,9 @@ def test_check_form():
 
     # Date of birth
     browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__month-select').click()
-    browser.element('.react-datepicker__month-select').element('option[value="5"]').click()  # Июнь
-    browser.element('.react-datepicker__year-select').click()
-    browser.element('.react-datepicker__year-select').element('option[value="1994"]').click()
-    browser.element('.react-datepicker__day--017').click()
+    browser.element('[value="1991"]').click()
+    browser.element('[value="5"]').click()
+    browser.element('[class="react-datepicker__day react-datepicker__day--004"]').click()
 
     # Filling out the form
     browser.element('#subjectsInput').type('IT')
@@ -32,6 +29,18 @@ def test_check_form():
     browser.all("#state div").element_by(have.exact_text("NCR")).click()
     browser.element('#city').click()
     browser.all("#city div").element_by(have.exact_text("Delhi")).click()
-
-    # Send form
     browser.element('#submit').click()
+
+    # Expected Result
+    browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
+    browser.all('.modal-body tr td')[1].should(have.exact_text('Ivan Ivanov'))
+    browser.all('.modal-body tr td')[3].should(have.exact_text('Ivanov@yandex.ru'))
+    browser.all('.modal-body tr td')[5].should(have.exact_text('Male'))
+    browser.all('.modal-body tr td')[7].should(have.exact_text('89000000000'))
+    browser.all('.modal-body tr td')[9].should(have.exact_text('04 June,1991'))
+    browser.all('.modal-body tr td')[11].should(have.exact_text('IT'))
+    browser.all('.modal-body tr td')[13].should(have.exact_text('Music'))
+    browser.all('.modal-body tr td')[15].should(have.exact_text('cat.jpg'))
+    browser.all('.modal-body tr td')[17].should(have.exact_text('123 Street, City, Country'))
+    browser.all('.modal-body tr td')[19].should(have.exact_text('NCR Delhi'))
+
