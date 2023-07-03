@@ -18,7 +18,8 @@ def test_check_form(setup_browser):
     browser.element('[class="react-datepicker__day react-datepicker__day--004"]').click()
 
     # Filling out the form
-    browser.element('#subjectsInput').type('IT')
+    browser.element('#subjectsInput').type('Maths').press_enter()
+
 
     # load file
     browser.element('#uploadPicture').send_keys(os.path.abspath('image/cat.jpg'))
@@ -30,6 +31,7 @@ def test_check_form(setup_browser):
     browser.element('#city').click()
     browser.all("#city div").element_by(have.exact_text("Delhi")).click()
     browser.element('#submit').click()
+
 
     # Expected Result
     browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
@@ -43,4 +45,5 @@ def test_check_form(setup_browser):
     browser.all('.modal-body tr td')[15].should(have.exact_text('cat.jpg'))
     browser.all('.modal-body tr td')[17].should(have.exact_text('123 Street, City, Country'))
     browser.all('.modal-body tr td')[19].should(have.exact_text('NCR Delhi'))
+
 
