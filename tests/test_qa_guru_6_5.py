@@ -15,7 +15,9 @@ def test_check_form(browser_management):
     browser.element('#dateOfBirthInput').click()
     browser.element('[value="1991"]').click()
     browser.element('[value="5"]').click()
-    browser.element('[class="react-datepicker__day react-datepicker__day--004"]').click()
+    browser.element(
+        '[class="react-datepicker__day react-datepicker__day--004"]'
+    ).click()
 
     # Filling out the form
     browser.element('#subjectsInput').type('Maths').press_enter()
@@ -33,7 +35,9 @@ def test_check_form(browser_management):
     browser.element('#submit').click()
 
     # Expected Result
-    browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
+    browser.element('.modal-header').should(
+        have.exact_text('Thanks for submitting the form')
+    )
     browser.all('.modal-body tr td')[1].should(have.exact_text('Ivan Ivanov'))
     browser.all('.modal-body tr td')[3].should(have.exact_text('Ivanov@yandex.ru'))
     browser.all('.modal-body tr td')[5].should(have.exact_text('Male'))
@@ -42,5 +46,7 @@ def test_check_form(browser_management):
     browser.all('.modal-body tr td')[11].should(have.exact_text('Maths'))
     browser.all('.modal-body tr td')[13].should(have.exact_text('Sports'))
     browser.all('.modal-body tr td')[15].should(have.exact_text('cat.jpg'))
-    browser.all('.modal-body tr td')[17].should(have.exact_text('123 Street, City, Country'))
+    browser.all('.modal-body tr td')[17].should(
+        have.exact_text('123 Street, City, Country')
+    )
     browser.all('.modal-body tr td')[19].should(have.exact_text('NCR Delhi'))
